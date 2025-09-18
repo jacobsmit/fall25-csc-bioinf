@@ -40,43 +40,29 @@ function compute_n50() {
     done
 }
 
+format_time() {
+    local ms=$1
+    local s=$((ms / 1000))
+    local ms_rem=$((ms % 1000))
+    printf "%02d:%03d" "$s" "$ms_rem"
+}
+
 echo "Dataset Language Runtime(s) N50"
 echo "--------------------------------"
 
 for dataset in $datasets; do
     # --- Python ---
-    start_sec=$(date +%s)
-    start_ms=$(date +%N)  # nanoseconds
-    start_ms=$((start_ms / 1000000))  # convert to milliseconds
-
+    start=$(date +%s%3N)
     python3 ./week1/code/Python/main.py "$data_dir/$dataset" > "./week1/test/python_${dataset}"
-
-    end_sec=$(date +%s)
-    end_ms=$(date +%N)
-    end_ms=$((end_ms / 1000000))
-
-    # total elapsed time in milliseconds
-    runtime_ms=$(((end_sec - start_sec) * 1000 + (end_ms - start_ms)))
-
-    seconds=$((runtime_ms / 1000))
-    milliseconds=$((runtime_ms % 1000))
-    python_runtime=$(printf "%02d:%03d" $seconds $milliseconds)
+    end=$(date +%s%3N)
+    python_runtime=$(format_time $((end - start)))
 
     # --- Codon ---
-    start_sec=$(date +%s)
-    start_ms=$(date +%N)
-    start_ms=$((start_ms / 1000000))
 
+    start=$(date +%s%3N)
     codon run -release ./week1/code/codon/main.py "$data_dir/$dataset" > "./week1/test/codon_${dataset}"
-
-    end_sec=$(date +%s)
-    end_ms=$(date +%N)
-    end_ms=$((end_ms / 1000000))
-
-    runtime_ms=$(((end_sec - start_sec) * 1000 + (end_ms - start_ms)))
-    seconds=$((runtime_ms / 1000))
-    milliseconds=$((runtime_ms % 1000))
-    codon_runtime=$(printf "%02d:%03d" $seconds $milliseconds)
+    end=$(date +%s%3N)
+    codon_runtime=$(format_time $((end - start)))
 
     # --- Print Results ---
     python_n50=$(compute_n50 "./week1/test/python_${dataset}")
