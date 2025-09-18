@@ -77,5 +77,5 @@ for dataset in $datasets; do
 
     # --- Print Results in Table ---
     printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "python" "$python_runtime" "$python_n50"
-    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "Ccdon" "$codon_runtime" "$codon_n50"
+    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "codon" "$codon_runtime" "$codon_n50"
 done
