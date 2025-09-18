@@ -49,7 +49,7 @@ for dataset in $datasets; do
     start_ms=$(date +%N)  # nanoseconds
     start_ms=$((start_ms / 1000000))  # convert to milliseconds
 
-    python3 ./week1/code/Python/main.py "$data_dir/$dataset" > "./week1/test/Python_${dataset}"
+    python3 ./week1/code/Python/main.py "$data_dir/$dataset" > "./week1/test/python_${dataset}"
 
     end_sec=$(date +%s)
     end_ms=$(date +%N)
@@ -79,8 +79,8 @@ for dataset in $datasets; do
     codon_runtime=$(printf "%02d:%03d" $seconds $milliseconds)
 
     # --- Print Results ---
-    python_n50=$(compute_n50 "./week1/test/Python_${dataset}")
-    codon_n50=$(compute_n50 "./week1/test/Codon_${dataset}")
+    python_n50=$(compute_n50 "./week1/test/python_${dataset}")
+    codon_n50=$(compute_n50 "./week1/test/codon_${dataset}")
     echo "$dataset Python $python_runtime $python_n50"
     echo "$dataset Codon $codon_runtime $codon_n50"
 done
