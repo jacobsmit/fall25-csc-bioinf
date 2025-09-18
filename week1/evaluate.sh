@@ -54,8 +54,8 @@ format_time() {
 mkdir -p ./week1/test
 
 # Table Header
-printf "\n%-10s │ %-9s │ %-15s │ %-10s\n" "Dataset" "Language" "Runtime(MM:SS:MS)" "N50"
-printf "%-10s─┼%-9s─┼%-15s─┼%-10s\n" "──────────" "─────────" "───────────────" "──────────"
+printf "\n%-10s │ %-9s │ %-17s │ %-10s\n" "Dataset" "Language" "Runtime(MM:SS:MS)" "N50"
+printf "───────────┼───────────┼───────────────────┼──────────\n"
 
 # Main Loop
 for dataset in $datasets; do
@@ -76,8 +76,6 @@ for dataset in $datasets; do
     codon_n50=$(compute_n50 "./week1/test/codon_${dataset}")
 
     # --- Print Results in Table ---
-    printf "%-10s │ %-9s │ %-15s │ %-10s\n" "$dataset" "Python" "$python_runtime" "$python_n50"
-    printf "%-10s │ %-9s │ %-15s │ %-10s\n" "$dataset" "Codon" "$codon_runtime" "$codon_n50"
+    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "Python" "$python_runtime" "$python_n50"
+    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "Codon" "$codon_runtime" "$codon_n50"
 done
-
-echo ""
