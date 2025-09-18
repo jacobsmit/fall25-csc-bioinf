@@ -40,13 +40,19 @@ function compute_n50() {
 
 format_time() {
     local ms=$1
-    local s=$((ms / 1000))
+    local total_s=$((ms / 1000))
     local ms_rem=$((ms % 1000))
-    printf "%02d:%03d" "$s" "$ms_rem"
+    local min=$((total_s / 60))
+    local sec=$((total_s % 60))
+    printf "%02d:%02d:%03d" "$min" "$sec" "$ms_rem"
 }
 
-echo "Dataset Language Runtime(s) N50"
-echo "--------------------------------"
+# --- Build Codon binary once for speed ---
+codon_exe="./week1/code/codon/main_exe"
+codon build -release ./week1/code/codon/main.py -o "$codon_exe"
+
+echo "Dataset    Language   Runtime(MM:SS:MS)   N50"
+echo "---------------------------------------------"
 
 mkdir -p ./week1/test
 for dataset in $datasets; do
@@ -56,10 +62,9 @@ for dataset in $datasets; do
     end=$(date +%s%3N)
     python_runtime=$(format_time $((end - start)))
 
-    # --- Codon ---
-
+    # --- Codon (using built executable) ---
     start=$(date +%s%3N)
-    codon run -release ./week1/code/codon/main.py "$data_dir/$dataset" > "./week1/test/codon_${dataset}"
+    "$codon_exe" "$data_dir/$dataset" > "./week1/test/codon_${dataset}"
     end=$(date +%s%3N)
     codon_runtime=$(format_time $((end - start)))
 
