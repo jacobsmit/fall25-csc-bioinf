@@ -5,6 +5,8 @@ PATH=${PATH}:${HOME}/.codon/bin
 data_dir="week1/data"
 datasets="data1 data2 data3 data4"
 
+ulimit -s 8192000
+
 # Input: file with contig lengths as second column
 function compute_n50() {
     file="$1"
@@ -46,6 +48,7 @@ format_time() {
 echo "Dataset Language Runtime(s) N50"
 echo "--------------------------------"
 
+mkdir -p ./week1/test
 for dataset in $datasets; do
     # --- Python ---
     start=$(date +%s%3N)
