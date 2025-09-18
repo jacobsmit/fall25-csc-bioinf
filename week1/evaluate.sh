@@ -61,7 +61,7 @@ printf "───────────┼───────────┼
 for dataset in $datasets; do
     # --- Python ---
     start=$(date +%s%3N)
-    python3 ./week1/code/Python/main.py "$data_dir/$dataset" > "./week1/test/python_${dataset}"
+    python3 ./week1/code/python/main.py "$data_dir/$dataset" > "./week1/test/python_${dataset}"
     end=$(date +%s%3N)
     python_runtime=$(format_time $((end - start)))
 
@@ -76,6 +76,6 @@ for dataset in $datasets; do
     codon_n50=$(compute_n50 "./week1/test/codon_${dataset}")
 
     # --- Print Results in Table ---
-    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "Python" "$python_runtime" "$python_n50"
-    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "Codon" "$codon_runtime" "$codon_n50"
+    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "python" "$python_runtime" "$python_n50"
+    printf "%-10s │ %-9s │ %-17s │ %-10s\n" "$dataset" "Ccdon" "$codon_runtime" "$codon_n50"
 done
