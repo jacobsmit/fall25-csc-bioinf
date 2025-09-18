@@ -2,6 +2,10 @@
 # set -euxo pipefail
 PATH=${PATH}:${HOME}/.codon/bin
 
+pwd
+ls -R
+
+
 data_dir="week1/data"
 datasets="data1 data2 data3 data4"
 
